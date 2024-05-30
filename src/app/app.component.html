@@ -1,0 +1,32 @@
+<header>
+  <app-header/>
+</header>
+
+<main>
+  <ul id="users">
+    
+    @for(user of users; track user.id)   
+    { 
+      <li>
+        <app-user [user]="user" [selected]="user.id == selectedUserId" (userSelected)="onSelectedUser($event)"/>
+      </li>
+    }
+    <!-- track is for keeping track of every item created so the compiler doesn't have -->
+    <!-- to create all the user again. track must keep track of a unique identifier -->
+    
+    <!-- other sintax using ngFor    
+      <li *ngFor="let user of users">
+        <app-user [user]="user" (userSelected)="onSelectedUser($event)"/>
+      </li> 
+    -->
+  </ul>
+
+  @if (selectedUser) 
+  {
+    <app-tasks [name]="selectedUser.name" [userId]="selectedUser.id"></app-tasks>
+  }
+  @else 
+  {
+    <p id="fallback"> Select a user to see his tasks!</p>
+  }
+</main>
